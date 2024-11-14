@@ -72,21 +72,21 @@ type D1Item = {
     created_at: string,
 }
 
-const { exitCode, stderr, stdout } = await $`bunx wrangler d1 create ${DB_NAME}`.quiet().nothrow()
-if (exitCode !== 0) {
-    if (!stderr.toString().includes('DUPLICATE_DATABASE_ERROR')) {
-        console.error(`Failed to create D1 "${DB_NAME}"`)
-        console.error(stripIndent(stdout.toString()))
-        console.log(`----------------------------`)
-        console.error(stripIndent(stderr.toString()))
-        process.exit(1)
-    } else {
-        console.log(`D1 "${DB_NAME}" already exists.`)
-    }
-} else {
-    console.log(`Created D1 "${DB_NAME}"`)
-}
-console.log(`Searching D1 "${DB_NAME}"`)
+// const { exitCode, stderr, stdout } = await $`bunx wrangler d1 create ${DB_NAME}`.quiet().nothrow()
+// if (exitCode !== 0) {
+//     if (!stderr.toString().includes('DUPLICATE_DATABASE_ERROR')) {
+//         console.error(`Failed to create D1 "${DB_NAME}"`)
+//         console.error(stripIndent(stdout.toString()))
+//         console.log(`----------------------------`)
+//         console.error(stripIndent(stderr.toString()))
+//         process.exit(1)
+//     } else {
+//         console.log(`D1 "${DB_NAME}" already exists.`)
+//     }
+// } else {
+//     console.log(`Created D1 "${DB_NAME}"`)
+// }
+// console.log(`Searching D1 "${DB_NAME}"`)
 const listJsonString = await $`bunx wrangler d1 list --json`.quiet().text()
 const listJson = JSON.parse(listJsonString) as D1Item[] ?? []
 const existing = listJson.find((x: D1Item) => x.name === DB_NAME)
