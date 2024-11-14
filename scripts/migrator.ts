@@ -74,7 +74,7 @@ type D1Item = {
 
 const { exitCode, stderr, stdout } = await $`bunx wrangler d1 create ${DB_NAME}`.quiet().nothrow()
 if (exitCode !== 0) {
-    if (!stderr.toString().includes('already exists')) {
+    if (!stderr.toString().includes('DUPLICATE_DATABASE_ERROR')) {
         console.error(`Failed to create D1 "${DB_NAME}"`)
         console.error(stripIndent(stdout.toString()))
         console.log(`----------------------------`)
